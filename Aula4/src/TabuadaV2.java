@@ -8,7 +8,7 @@ public class TabuadaV2 {
 
 		int numero, contador = 1;
 
-		System.out.println("Mostre a tabuada do nÃºmero: ");
+		System.out.println("Mostre a tabuada do número: ");
 		numero = leia.nextInt();
 		
 		while(contador <= 10) {
