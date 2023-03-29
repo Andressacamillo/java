@@ -1,6 +1,8 @@
 package cliente.model;
 
 public class Clientes {
+	
+
 
 	private String nome;
 	private int idade;
@@ -74,6 +76,6 @@ public void visualizar() {
 		System.out.println("Telefone: " + this.telefone);
 		System.out.println("CEP: " + this.cep);
 	
-}
 
+	}
 }

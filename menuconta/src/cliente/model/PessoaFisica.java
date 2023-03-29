@@ -2,6 +2,7 @@ package cliente.model;
 
 public class PessoaFisica extends Clientes{
 
+	
 	private String cpf;
 
 	public PessoaFisica(String nome, int idade, String telefone, String cep, int estadoCivil,String cpf) {
@@ -21,5 +22,7 @@ public class PessoaFisica extends Clientes{
 		super.visualizar();
 		System.out.println("Pessoa Física - CPF: " + this.cpf);
 		
-	}
+	
+}
+	
 }
