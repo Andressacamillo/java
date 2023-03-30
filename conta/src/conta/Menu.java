@@ -1,10 +1,15 @@
 package conta;
 
+import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import conta.model.Conta;
+import conta.controler.ContaControler;
+import conta.model.ContaCorrente;
+import conta.model.ContaPoupanca;
+import conta.util.Cores;
 
-public class menu {
+public class Menu {
 	public static void main(String[] args) {
 
 		Scanner leia = new Scanner(System.in);
@@ -13,26 +18,12 @@ public class menu {
 		String titular;
 		float saldo, limite, valor;
 		
-		Conta c1 = new Conta (1, 123, 1, "Jeniffer Souza", 100000.00f);
-		
-		c1.visualizar();
-		
-		System.out.println("Saldo da conta: " + c1.getSaldo());
-		
-		c1.setTitular("Jeniffer Souza Ribeiro");
-		
-		c1.visualizar();
-		
-		c1.sacar(200000.0f);
-		c1.visualizar();
-		
-		c1.depositar (2000.0f);
-		c1.visualizar();
+		ContaControler contas = new ContaControler();
 		
 		while (true) {
 
 			
-			System.out.println(cores.TEXT_WHITE + cores.ANSI_BLACK_BACKGROUND + "*****************************************************");
+			System.out.println(Cores.TEXT_WHITE + Cores.ANSI_BLACK_BACKGROUND + "*****************************************************");
 			System.out.println("                                                     ");
 			System.out.println("                BANCO DO BRAZIL COM Z                ");
 			System.out.println("                                                     ");
@@ -50,9 +41,16 @@ public class menu {
 			System.out.println("                                                     ");
 			System.out.println("*****************************************************");
 			System.out.println("Entre com a opção desejada:                          ");
-			System.out.println("                                                     " + cores.TEXT_RESET);
+			System.out.println("                                                     " + Cores.TEXT_RESET);
+			
+			try {
+                opcao = leia.nextInt();
+            }catch (InputMismatchException e){
+                System.out.println("Digite valores inteiros!");
+                leia.nextLine();
+                opcao = 0;
 
-			opcao = leia.nextInt();
+            }
 
 			if (opcao == 9) {
 				System.out.println("\nBanco do Brazil com Z - O seu Futuro começa aqui!");
@@ -60,6 +58,8 @@ public class menu {
 				System.exit(0);
 			}
 
+			
+			
 			switch (opcao) {
 			case 1:
 				System.out.println("Criar Conta\n\n");
@@ -82,31 +82,39 @@ public class menu {
 				case 1 -> {
 					System.out.println("Digite o Limite de Crédito (R$): ");
 					limite = leia.nextFloat();
+					
+					contas.cadastrar(new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite));
 
-					// criar o objeto conta corrente
+					
 				}
 				case 2 -> {
 					System.out.println("Digite o dia do Aniversario da Conta: ");
 					aniversario = leia.nextInt();
-
-					// criar o objeto conta poupanca
+					
+					contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
 				}
 				}
-
+				keyPress();
 				break;
 			case 2:
 				System.out.println("Listar todas as Contas\n\n");
-
+				contas.listarTodas();
+				keyPress();
+				
 				break;
 			case 3:
 				System.out.println("Consultar dados da Conta - por número\n\n");
 				System.out.println("Digite o número da conta: ");
                 numero = leia.nextInt();
+                contas.procurarPorNumero(numero);
+                keyPress();
+                
 				break;
 			case 4:
 				System.out.println("Atualizar dados da Conta\n\n");
 				System.out.println("Digite o número da conta: ");
                 numero = leia.nextInt();
+                
 
                 tipo = 1;
                 // condicional buscar na collection
@@ -119,7 +127,7 @@ public class menu {
 
                 System.out.println("Digite o Saldo da Conta (R$): ");
                 saldo = leia.nextFloat();
-
+                
                 // retornar tipo
 
                 switch (tipo) {
@@ -140,24 +148,37 @@ public class menu {
                     System.out.println("Tipo de conta inválido!");
                 }
                 }
-
+                keyPress();
+                
                 // fim do condicional buscar na collection
 				break;
 			case 5:
 				System.out.println("Apagar a Conta\n\n");
 				System.out.println("Digite o número da conta: ");
                 numero = leia.nextInt();
+                keyPress();
 				break;
+				
+				
 			case 6:
 				System.out.println("Saque\n\n");
 				System.out.println("Digite o número da conta: ");
+				
                 numero = leia.nextInt();
+                System.out.println("Digite o valor do Saque: ");
+                valor=leia.nextFloat();
+                keyPress();
 				break;
+				
 			case 7:
 				System.out.println("Depósito\n\n");
 				System.out.println("Digite o número da conta: ");
                 numero = leia.nextInt();
+                System.out.println("Digite o valor do depósito: ");
+                valor=leia.nextFloat();
+                keyPress();
 				break;
+				
 			case 8:
 				System.out.println("Transferência entre Contas\n\n");
 				System.out.println("Digite o Numero da Conta de Origem: ");
@@ -169,13 +190,32 @@ public class menu {
                     System.out.println("Digite o Valor da Transferência (R$): ");
                     valor = leia.nextFloat();
                 } while (valor <= 0);
+                keyPress();
 				break;
+				
 			default:
 				System.out.println("\nOpção Inválida!\n");
+				keyPress();
 				break;
 			}
 
 		}
 	}
+	
+	public static void sobre() {
+
+        System.out.println("   \nE-mail: andressacamillo17@gmail.com   ");
+        System.out.println("GitHub: https://github.com/Andressacamillo");
+        System.out.println("           Andressa Camillo\n             ");
+    }
+
+    public static void keyPress() {
+        try {
+            System.out.println(Cores.TEXT_RESET + "Pressione a tecla enter para continuar ...");
+            System.in.read();
+        }catch (IOException e) {
+            System.out.println("Erro de Digitação!");
+        }
+    }
 }
 

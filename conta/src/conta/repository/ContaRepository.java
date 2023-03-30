@@ -1,11 +1,10 @@
-package conta;
+package conta.repository;
 
 import conta.model.Conta;
-
 public interface ContaRepository {
 
-		
-		//CRUD de Conta
+						
+	//CRUD de Conta
 		public void procurarPorNumero(int numero);
 		public void listarTodas();
 		public void cadastrar(Conta conta);
@@ -18,6 +17,6 @@ public interface ContaRepository {
 		public void transferir(int numeroOrigem,int numeroDestino, float valor);
 
 	}
-
+	
 	
 
