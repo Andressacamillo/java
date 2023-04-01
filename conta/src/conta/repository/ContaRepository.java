@@ -4,12 +4,12 @@ import conta.model.Conta;
 public interface ContaRepository {
 
 						
-	//CRUD de Conta
+	    //CRUD de Conta
 		public void procurarPorNumero(int numero);
 		public void listarTodas();
 		public void cadastrar(Conta conta);
 		public void atualizar(Conta conta);
-		public void detelar(int numero);
+		public void deletar(int numero);
 		
 		//Metodos Bancarios
 		public void sacar(int numero, float valor);

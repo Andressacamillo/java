@@ -21,6 +21,8 @@ public class ChecaIdade {
 		
 		if(idade > 18)
 			System.out.println("A Pessoa pode dirigir!!");
+		else
+			throw new ArithmeticException("A pessoa não está apta a dirigir!");
 	
 	}
 
